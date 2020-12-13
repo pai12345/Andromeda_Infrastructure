@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: nodegraphql
-          image: andromeda/graphql:latest
+          image: nodegraphql:lts
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
