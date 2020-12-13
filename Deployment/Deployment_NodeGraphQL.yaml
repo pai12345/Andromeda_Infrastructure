@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-depl-graphql
+  labels:
+    name: dev-depl-graphql
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:  dev-pod-graphql
+      tier: backend
+  template:
+    metadata:
+      name:  dev-pod-graphql
+      labels:
+        app: dev-pod-graphql
+        tier: backend
+    spec:
+      containers:
+        - name: nodegraphql
+          image: andromeda/graphql
+          ports:
+            - containerPort: 8000
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
