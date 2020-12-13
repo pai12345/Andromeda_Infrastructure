@@ -8,9 +8,10 @@ metadata:
     tier: backend
 spec:
   type: NodePort
+  selector:
+    app: dev-pod-graphql
+    tier: backend
   ports:
     - port: 8000
+      targetPort: 8000
       protocol: TCP
-  selector:
-    name: dev-pod-graphql
-    tier: backend
