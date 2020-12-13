@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dev-depl-graphql
+  namespace: dev
   labels:
     name: dev-depl-graphql
     tier: backend
@@ -20,7 +21,8 @@ spec:
     spec:
       containers:
         - name: nodegraphql
-          image: andromeda/graphql
+          image: andromeda/graphql:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           securityContext:
