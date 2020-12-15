@@ -23,7 +23,6 @@ spec:
         - name: nodegraphql
           image: nodegraphql:lts
           imagePullPolicy: IfNotPresent
-          command: [ "/bin/sh", "-c", "env" ]
           envFrom:
             - configMapRef:
                 name: dev-configmp-graphql

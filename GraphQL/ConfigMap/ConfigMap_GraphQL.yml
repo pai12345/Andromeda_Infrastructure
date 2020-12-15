@@ -7,6 +7,6 @@ metadata:
     name: dev-configmp-graphql
     tier: config
 data:
-  GENERATE_SOURCEMAP: false
+  GENERATE_SOURCEMAP: "false"
   TYPE: mongodb
   TYPEADDITION: srv
