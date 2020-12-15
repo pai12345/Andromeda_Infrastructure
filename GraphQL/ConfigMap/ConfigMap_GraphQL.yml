@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: dev-configmp-graphql
+ namespace: dev
+ labels:
+    name: dev-configmp-graphql
+    tier: config
+data:
+  GENERATE_SOURCEMAP: false
+  TYPE: mongodb
+  TYPEADDITION: srv
+  USERNAME: admin
+  PASSWORD: admin
+  HOST: cluster-andromeda.ms09l.mongodb.net
+  DATABASE: Andromeda
+  RETRYWRITES: true
+  WRITECONCERN: majority
+ 
