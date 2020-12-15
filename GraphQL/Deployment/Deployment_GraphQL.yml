@@ -29,7 +29,37 @@ spec:
             - secretRef:
                 name: dev-secret-graphql
           ports:
-            - containerPort: 8000
+            - name: graphql-port
+              containerPort: 8000
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 0
+            
+          startupProbe:
+            httpGet:
+              path: /
+              port: graphql-port
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+                      
+          readinessProbe:
+            httpGet:
+              path: /
+              port: graphql-port
+            initialDelaySeconds: 1
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: graphql-port
+            initialDelaySeconds: 1
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
