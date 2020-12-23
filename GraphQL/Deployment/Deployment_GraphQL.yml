@@ -18,6 +18,7 @@ spec:
       labels:
         app: dev-pod-graphql
         tier: backend
+        version: prod-version
     spec:
       containers:
         - name: nodegraphql
