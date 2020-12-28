@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: istio-dr-graphql
+  namespace: dev
+spec:
+  host: dev-svc-graphql.dev.svc.cluster.local
+  trafficPolicy: ~
+  subsets:
+  - name: prod-group
+    labels:
+      version: prod-version
