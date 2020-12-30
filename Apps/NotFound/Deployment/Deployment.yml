@@ -1,37 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dev-depl-graphql
+  name: dev-depl-notfound
   namespace: dev
   labels:
-    name: dev-depl-graphql
-    tier: backend
+    name: dev-depl-notfound
+    tier: serverless
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app:  dev-pod-graphql
-      tier: backend
+      app:  dev-pod-notfound
+      tier: serverless
   template:
     metadata:
-      name:  dev-pod-graphql
+      name:  dev-pod-notfound
       labels:
-        app: dev-pod-graphql
-        tier: backend
-        version: prod-version
+        app: dev-pod-notfound
+        tier: serverless
+        version: notfound-version
     spec:
       containers:
-        - name: nodegraphql
-          image: nodegraphql:lts
+        - name: gonotfound
+          image: gonotfound:lts
           imagePullPolicy: IfNotPresent
-          envFrom:
-            - configMapRef:
-                name: dev-configmp-graphql
-            - secretRef:
-                name: dev-secret-graphql
           ports:
-            - name: graphql-port
-              containerPort: 8000
+            - name: notfound-port
+              containerPort: 8080
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 0
@@ -39,7 +34,7 @@ spec:
           startupProbe:
             httpGet:
               path: /
-              port: graphql-port
+              port: notfound-port
             periodSeconds: 30
             timeoutSeconds: 30
             successThreshold: 1
@@ -48,7 +43,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: graphql-port
+              port: notfound-port
             initialDelaySeconds: 1
             periodSeconds: 30
             timeoutSeconds: 30
@@ -58,7 +53,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: graphql-port
+              port: notfound-port
             initialDelaySeconds: 1
             periodSeconds: 30
             timeoutSeconds: 30

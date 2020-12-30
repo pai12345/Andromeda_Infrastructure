@@ -1,0 +1,37 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: istio-vs-graphql
+  namespace: dev
+spec:
+  hosts:
+  - dev-svc-graphql.dev.svc.cluster.local
+  - dev-svc-notfound.dev.svc.cluster.local
+  http:
+  - name: "andromeda-graphql-route"
+    match:
+    - uri:
+        exact: "/api/Andromeda"
+      ignoreUriCase: true
+    route:
+    - destination:
+        host: dev-svc-graphql.dev.svc.cluster.local
+        subset: graphql-group
+    timeout: 20s
+    retries:
+      attempts: 2
+      perTryTimeout: 20s
+      retryOn: gateway-error,reset,retriable-4xx,refused-stream,5xx,connect-failure,refused-stream
+  - name: "andromeda-notfound-route"
+    match:
+    - uri:
+        regex: "/"
+      ignoreUriCase: false
+    redirect:
+      uri: "/NotFound"
+      authority: dev-svc-notfound.dev.svc.cluster.local
+    timeout: 10s
+    retries:
+      attempts: 2
+      perTryTimeout: 10s
+      retryOn: gateway-error,reset,retriable-4xx,refused-stream,5xx,connect-failure,refused-stream

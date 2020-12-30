@@ -1,12 +1,12 @@
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: istio-dr-graphql
+  name: istio-dr-notfound
   namespace: dev
 spec:
-  host: dev-svc-graphql.dev.svc.cluster.local
+  host: dev-svc-notfound.dev.svc.cluster.local
   trafficPolicy: ~
   subsets:
-  - name: prod-group
+  - name: notfound-group
     labels:
-      version: prod-version
+      version: notfound-version
