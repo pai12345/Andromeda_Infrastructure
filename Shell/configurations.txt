@@ -1,0 +1,10 @@
+
+//Kuberentes
+Install kubeadm: kubeadm init --pod-network-cidr 10.244.0.0/16
+
+//git & docker add nameserver
+Edit resolv.config: sudo vim /etc/resolv.conf
+Add nameserver: nameserver 8.8.8.8 nameserver 8.8.4.4
+
+//docker
+Restart server - service docker restart

@@ -5,9 +5,11 @@ metadata:
   namespace: dev
 spec:
   hosts:
-  - dev-svc-graphql.dev.svc.cluster.local
+  # - dev-svc-graphql.dev.svc.cluster.local
   # - dev-svc-notfound.dev.svc.cluster.local
-  - "*"
+  - www.andromeda.home.com
+  exportTo:
+  - "."
   gateways:
   - istio-gateway-graphql
   http:
@@ -25,16 +27,19 @@ spec:
       attempts: 2
       perTryTimeout: 20s
       retryOn: gateway-error,reset,retriable-4xx,refused-stream,5xx,connect-failure,refused-stream
-  # - name: "andromeda-notfound-route"
-  #   match:
-  #   - uri:
-  #       regex: "/"
-  #     ignoreUriCase: false
-  #   redirect:
-  #     uri: "/NotFound"
-  #     authority: dev-svc-notfound.dev.svc.cluster.local
-  #   timeout: 10s
-  #   retries:
-  #     attempts: 2
-  #     perTryTimeout: 10s
-  #     retryOn: gateway-error,reset,retriable-4xx,refused-stream,5xx,connect-failure,refused-stream
+  - name: "andromeda-notfound-route"
+    match:
+    - uri:
+        prefix: /
+      ignoreUriCase: true
+    rewrite:
+      uri: /BadRequest
+    route:
+    - destination:
+        host: dev-svc-notfound.dev.svc.cluster.local
+        subset: notfound-group
+    timeout: 20s
+    retries:
+      attempts: 2
+      perTryTimeout: 20s
+      retryOn: gateway-error,reset,retriable-4xx,refused-stream,5xx,connect-failure,refused-stream
