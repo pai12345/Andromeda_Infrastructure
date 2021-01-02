@@ -10,7 +10,7 @@ spec:
       simple: ROUND_ROBIN
     connectionPool:
       tcp:
-        connectTimeout: 10s
+       connectTimeout: 10s
   subsets:
   - name: notfound-group
     labels:
