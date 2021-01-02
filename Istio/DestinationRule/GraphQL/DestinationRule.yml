@@ -5,7 +5,12 @@ metadata:
   namespace: dev
 spec:
   host: dev-svc-graphql.dev.svc.cluster.local
-  trafficPolicy: ~
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    connectionPool:
+      tcp:
+        connectTimeout: 10s
   subsets:
   - name: graphql-group
     labels:
