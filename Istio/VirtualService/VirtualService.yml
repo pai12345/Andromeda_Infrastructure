@@ -7,7 +7,7 @@ spec:
   hosts:
   # - dev-svc-graphql.dev.svc.cluster.local
   # - dev-svc-notfound.dev.svc.cluster.local
-  - www.andromeda.home.com
+  - "www.andromeda.home.com"
   exportTo:
   - "."
   gateways:
