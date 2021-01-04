@@ -10,7 +10,11 @@ spec:
       simple: ROUND_ROBIN
     connectionPool:
       tcp:
-       connectTimeout: 10s
+        connectTimeout: 10s
+      http:
+        idleTimeout: 5s
+      outlierDetection:
+        interval: 12s
   subsets:
   - name: notfound-group
     labels:

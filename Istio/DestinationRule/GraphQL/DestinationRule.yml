@@ -10,7 +10,11 @@ spec:
       simple: ROUND_ROBIN
     connectionPool:
       tcp:
-        connectTimeout: 10s
+        connectTimeout: 20s
+      http:
+        idleTimeout: 30s
+      outlierDetection:
+        interval: 12s
   subsets:
   - name: graphql-group
     labels:
