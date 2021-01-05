@@ -1,4 +1,4 @@
-apiVersion: networking.istio.io/v1beta1
+Version: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
   name: istio-dr-notfound
@@ -11,11 +11,9 @@ spec:
     connectionPool:
       tcp:
         connectTimeout: 10s
-      http:
-        idleTimeout: 5s
-      outlierDetection:
-        interval: 12s
+    tls:
+      mode: ISTIO_MUTUAL
   subsets:
-  - name: notfound-group
-    labels:
-      version: notfound-version
+    - name: notfound-group
+      labels:
+        version: notfound-version

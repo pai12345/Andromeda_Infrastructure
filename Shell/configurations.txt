@@ -8,3 +8,16 @@ Add nameserver: nameserver 8.8.8.8 nameserver 8.8.4.4
 
 //docker
 Restart server - service docker restart
+
+//TLS
+#self-signed root certificate for home.com
+openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/O=home Inc./CN=home.com' -keyout home.com.key -out home.com.crt
+
+#generate a private key and a CSR
+openssl req -out andromeda.home.com.csr -newkey rsa:2048 -nodes -keyout andromeda.home.com.key -subj "/CN=andromeda.home.com/O=andromeda organization"
+
+#use the home.com root cert to sign the CSR to create a public andromeda.home.com certificate
+openssl x509 -req -days 365 -CA home.com.crt -CAkey home.com.key -set_serial 0 -in andromeda.home.com.csr -out andromeda.home.com.crt
+
+#Kubernetes Secret for TLS
+kubectl create -n istio-system secret tls andromeda-credential --key=andromeda.home.com.key --cert=andromeda.home.com.crt
