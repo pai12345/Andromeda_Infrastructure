@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Sidecar
+metadata:
+  name: istio-sidecar-config
+  namespace: dev
+spec:
+  workloadSelector:
+    labels:
+      version: graphql-version
+  outboundTrafficPolicy:
+    mode: REGISTRY_ONLY
+  egress:
+    - hosts:
+        - "*/andromeda.home.com"
+        - "dev/*"
+        - "istio-system/*"
