@@ -32,3 +32,8 @@ spec:
         - destination:
             host: dev-svc-notfound.dev.svc.cluster.local
             subset: notfound-group
+      timeout: 20s
+      retries:
+        attempts: 2
+        perTryTimeout: 20s
+        retryOn: gateway-error,reset,retriable-4xx,refused-stream,5xx,connect-failure,refused-stream
