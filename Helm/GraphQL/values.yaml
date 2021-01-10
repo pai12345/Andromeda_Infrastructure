@@ -1,6 +1,58 @@
-# Kubernetes Namespace
+#=========GraphQL===========#
+# Namespace
 NameSpace: dev
 
-# Kubernetes ConfigMap - GraphQL
+# ConfigMap
 ConfigMap:
   tier: config
+
+# Secrets
+Secrets:
+  type: Opaque
+
+# Deployment
+Deployment:
+ tier: backend
+ pod:
+   replicas: 1
+   tier: backend
+   version: graphql-version
+   containers:
+    name: nodegraphql
+    image: nodegraphql:lts
+    imagePullPolicy: IfNotPresent
+   ports:
+     name: graphql-port
+     containerPort: 8000
+   securityContext:
+     allowPrivilegeEscalation: false
+     runAsUser: 0
+   startupProbe:
+     port: graphql-port
+     periodSeconds: 30
+     timeoutSeconds: 30
+     successThreshold: 1
+     failureThreshold: 3
+   readinessProbe:
+     port: graphql-port
+     initialDelaySeconds: 1
+     periodSeconds: 30
+     timeoutSeconds: 30
+     successThreshold: 1
+     failureThreshold: 3
+   livenessProbe:
+     port: graphql-port
+     initialDelaySeconds: 1
+     periodSeconds: 30
+     timeoutSeconds: 30
+     successThreshold: 1
+     failureThreshold: 3
+
+# Service
+Service:
+  tier: backend
+  type: NodePort
+  ports:
+    port: 8000
+    targetPort: 8000
+    protocol: TCP
