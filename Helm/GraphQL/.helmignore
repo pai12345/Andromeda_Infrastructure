@@ -6,6 +6,8 @@
 .DS_Store
 .git/
 .gitignore
+.env
+.dockerignore
 .bzr/
 .bzrignore
 .hg/
@@ -27,4 +29,4 @@
 
 # misc
 README.md
-LICENSE
+LICENSE.md

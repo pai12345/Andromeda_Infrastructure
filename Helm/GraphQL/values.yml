@@ -1,0 +1,6 @@
+# Kubernetes Namespace
+NameSpace: dev
+
+# Kubernetes ConfigMap - GraphQL
+ConfigMap:
+  tier: config

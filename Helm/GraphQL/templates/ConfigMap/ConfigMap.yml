@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: {{ .Release.Name }}-configmap
+ namespace: {{ .Values.NameSpace }}
+ labels:
+    name: {{ .Release.Name }}-configmap
+    tier: {{ .Values.ConfigMap.tier }}
+data:
+  DEV_GRAPHQL_GENERATE_SOURCEMAP: "false"
+  DEV_MONGODB_TYPE: mongodb
+  DEV_MONGODB_TYPEADDITION: srv
