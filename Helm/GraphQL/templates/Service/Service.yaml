@@ -9,9 +9,7 @@ metadata:
 spec:
   type: {{ .Values.Service.type }}
   selector:
-    app: {{ .Release.Name }}-pod
-    tier: {{ .Values.Deployment.pod.tier }}
-    version: {{ .Values.Deployment.pod.version }}
+{{- include "andromeda.charts.pod.label" . | indent 4 }}
   ports:
     - port: {{ .Values.Service.ports.port }}
       targetPort: {{ .Values.Service.ports.targetPort }}

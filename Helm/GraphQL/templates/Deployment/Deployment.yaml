@@ -10,15 +10,12 @@ spec:
   replicas: {{ .Values.Deployment.pod.replicas }}
   selector:
     matchLabels:
-      app:  {{ .Release.Name }}-pod
-      tier: {{ .Values.Deployment.pod.tier }}
+{{- include "andromeda.charts.pod.label" . | indent 4 }}
   template:
     metadata:
       name:  {{ .Release.Name }}-pod
       labels:
-        app: {{ .Release.Name }}-pod
-        tier: {{ .Values.Deployment.pod.tier }}
-        version: {{ .Values.Deployment.pod.version }}
+{{- include "andromeda.charts.pod.label" . | indent 4 }}
     spec:
       containers:
         - name: {{ .Values.Deployment.pod.containers.name }}
