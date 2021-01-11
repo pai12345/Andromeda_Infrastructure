@@ -15,7 +15,9 @@ spec:
     metadata:
       name:  {{ .Release.Name }}-pod
       labels:
-{{- include "andromeda.charts.pod.label" . | indent 4 }}
+        app: {{ .Release.Name }}-pod
+        tier: {{ .Values.Deployment.pod.tier }}
+        version: {{ .Values.Deployment.pod.version }}
     spec:
       containers:
         - name: {{ .Values.Deployment.pod.containers.name }}

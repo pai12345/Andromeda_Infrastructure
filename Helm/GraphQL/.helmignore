@@ -2,17 +2,29 @@
 # This supports shell glob matching, relative path matching, and
 # negation (prefixed with !). Only one pattern per line.
 
-# Common VCS dirs
-.DS_Store
-.git/
-.gitignore
-.env
-.dockerignore
+# bzr
 .bzr/
 .bzrignore
+
+# env
+.env
+
+# docker
+.dockerignore
+Dockerfile
+
+# hg
 .hg/
 .hgignore
+
+# svn
 .svn/
+.svn
+
+# git
+.git/
+.git
+.gitignore
 
 # Common backup files
 *.swp
@@ -28,5 +40,6 @@
 .vscode/
 
 # misc
+.DS_Store
 README.md
 LICENSE.md
