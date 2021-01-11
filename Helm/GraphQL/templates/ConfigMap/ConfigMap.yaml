@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
  name: {{ .Release.Name }}-configmap
- namespace: {{ .Values.NameSpace }}
+ namespace: {{ .Values.NameSpace.name }}
  labels:
     name: {{ .Release.Name }}-configmap
     tier: {{ .Values.ConfigMap.tier }}

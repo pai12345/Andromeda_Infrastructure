@@ -1,6 +1,10 @@
 #=========GraphQL===========#
 # Namespace
-NameSpace: dev
+NameSpace: 
+    name: dev
+    labels: 
+      name: dev
+      istioinjection: enabled
 
 # ConfigMap
 ConfigMap:

@@ -12,4 +12,4 @@ IsInstall: {{ .Release.IsInstall }}
 To learn more about the release, try:
 
  - helm status {{ .Release.Name }}
- - helm get all {{ .Release.Name }}
+ - helm get manifest {{ .Release.Name }}
