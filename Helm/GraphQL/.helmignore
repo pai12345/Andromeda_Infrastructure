@@ -26,6 +26,9 @@ Dockerfile
 .git
 .gitignore
 
+# test
+tests/
+
 # Common backup files
 *.swp
 *.bak

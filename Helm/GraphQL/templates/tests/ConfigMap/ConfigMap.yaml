@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: {{ .Release.Name }}-configmap
+ namespace: {{ .Values.NameSpace.name }}
+ annotations:
+    "helm.sh/hook": test
+ labels:
+    name: {{ .Release.Name }}-configmap
+    tier: {{ .Values.ConfigMap.tier }}
+data:
+{{- include "andromeda.charts.configmap.data" . | indent 2 }}

@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-depl
+  namespace: {{ .Values.NameSpace.name }}
+  annotations:
+    "helm.sh/hook": test
+  labels:
+    name: {{ .Release.Name }}-depl
+    tier: {{ .Values.Deployment.tier }}
+spec:
+  replicas: {{ .Values.Deployment.pod.replicas }}
+  selector:
+    matchLabels:
+{{- include "andromeda.charts.pod.label" . | indent 4 }}
+  template:
+    metadata:
+      name:  {{ .Release.Name }}-pod
+      labels:
+        app: {{ .Release.Name }}-pod
+        tier: {{ .Values.Deployment.pod.tier }}
+        version: {{ .Values.Deployment.pod.version }}
+    spec:
+      containers:
+        - name: {{ .Values.Deployment.pod.containers.name }}
+          image: {{ .Values.Deployment.pod.containers.image }}
+          imagePullPolicy: {{ .Values.Deployment.pod.containers.imagePullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-configmap
+            - secretRef:
+                name: {{ .Release.Name }}-secret
+          ports:
+            - name: {{ .Values.Deployment.pod.ports.name }}
+              containerPort: {{ .Values.Deployment.pod.ports.containerPort }}
+          securityContext:
+            allowPrivilegeEscalation: {{ .Values.Deployment.pod.securityContext.allowPrivilegeEscalation }}
+            runAsUser: {{ .Values.Deployment.pod.securityContext.runAsUser }}
+            
+          startupProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.Deployment.pod.startupProbe.port }}
+            periodSeconds: {{ .Values.Deployment.pod.startupProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.Deployment.pod.startupProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.Deployment.pod.startupProbe.successThreshold }}
+            failureThreshold: {{ .Values.Deployment.pod.startupProbe.failureThreshold }}
+                      
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.Deployment.pod.readinessProbe.port }}
+            initialDelaySeconds: {{ .Values.Deployment.pod.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.Deployment.pod.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.Deployment.pod.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.Deployment.pod.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.Deployment.pod.readinessProbe.failureThreshold }}
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.Deployment.pod.livenessProbe.port }}
+            initialDelaySeconds: {{ .Values.Deployment.pod.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.Deployment.pod.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.Deployment.pod.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.Deployment.pod.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.Deployment.pod.livenessProbe.failureThreshold }}
