@@ -61,7 +61,7 @@
  {{- end }}
 {{- end }}
 
-# Stage 2
+# Stage 3
 {{- define "andromeda.charts.annotations.stage3" }}
  {{- range $key, $val := .Values.Annotation_Common.Stage3 }}
   {{- if eq $key "helm.sh/hook-weight" }}
