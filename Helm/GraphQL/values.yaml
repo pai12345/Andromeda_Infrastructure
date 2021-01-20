@@ -5,17 +5,9 @@ NameSpace:
   labels:
     name: dev
     istioinjection: enabled
-  helm_annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-weight: "-10"
-    helm.sh/hook-delete-policy: before-hook-creation
 
 # ConfigMap
 ConfigMap:
-  helm_annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-weight: "-5"
-    helm.sh/hook-delete-policy: before-hook-creation
   tier: config
   data:
     DEV_GRAPHQL_GENERATE_SOURCEMAP: false
@@ -24,10 +16,6 @@ ConfigMap:
 
 # Secrets
 Secrets:
-  helm_annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-weight: "-5"
-    helm.sh/hook-delete-policy: before-hook-creation
   type: Opaque
   data:
     DEV_MONGODB_USERNAME: YWRtaW4K
@@ -46,9 +34,6 @@ Secrets:
 # Deployment
 Deployment:
   tier: backend
-  helm_annotations:
-    helm.sh/hook-weight: "0"
-    helm.sh/hook-delete-policy: before-hook-creation
   pod:
     replicas: 1
     tier: backend
@@ -86,12 +71,26 @@ Deployment:
 
 # Service
 Service:
-  helm_annotations:
-    helm.sh/hook-weight: "0"
-    helm.sh/hook-delete-policy: before-hook-creation
   tier: backend
   type: NodePort
   ports:
     port: 8000
     targetPort: 8000
     protocol: TCP
+
+#Annotations
+Annotation_Common:
+  Stage0:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-10"
+    helm.sh/hook-delete-policy: before-hook-creation
+  Stage1:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-5"
+    helm.sh/hook-delete-policy: before-hook-creation
+  Stage2:
+    helm.sh/hook-weight: "0"
+    helm.sh/hook-delete-policy: before-hook-creation
+  Stage3:
+    helm.sh/hook-weight: "1"
+    helm.sh/hook-delete-policy: before-hook-creation

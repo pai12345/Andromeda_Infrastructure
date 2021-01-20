@@ -7,8 +7,7 @@ metadata:
     name: {{ .Release.Name }}-depl
     tier: {{ .Values.Deployment.tier }}
   annotations:
-    helm.sh/hook-weight: "0"
-    helm.sh/hook-delete-policy: before-hook-creation
+{{- include "andromeda.charts.annotations.stage2" . | indent 2}}
 spec:
   replicas: {{ .Values.Deployment.pod.replicas }}
   selector:
@@ -21,6 +20,8 @@ spec:
         app: {{ .Release.Name }}-pod
         tier: {{ .Values.Deployment.pod.tier }}
         version: {{ .Values.Deployment.pod.version }}
+        annotations:
+{{- include "andromeda.charts.annotations.stage3" . | indent 6 }}
     spec:
       containers:
         - name: {{ .Values.Deployment.pod.containers.name }}

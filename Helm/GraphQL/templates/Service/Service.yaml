@@ -7,8 +7,7 @@ metadata:
     name: {{ .Release.Name }}-svc
     tier: {{ .Values.Service.tier }}
   annotations:
-    helm.sh/hook-weight: "0"
-    helm.sh/hook-delete-policy: before-hook-creation
+{{- include "andromeda.charts.annotations.stage2" . | indent 4 }}
 spec:
   type: {{ .Values.Service.type }}
   selector:

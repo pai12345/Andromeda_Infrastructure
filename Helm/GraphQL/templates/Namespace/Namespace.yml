@@ -1,11 +1,9 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: { { .Values.NameSpace.name } }
+  name: {{ .Values.NameSpace.name }}
   labels:
-    name: { { .Values.NameSpace.labels.name } }
-    istio-injection: { { .Values.NameSpace.labels.istioinjection } }
+    name: {{ .Values.NameSpace.labels.name }}
+    istio-injection: {{ .Values.NameSpace.labels.istioinjection }}
   annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-weight: "-10"
-    helm.sh/hook-delete-policy: before-hook-creation
+{{- include "andromeda.charts.annotations.stage0" . | indent 4 }}
