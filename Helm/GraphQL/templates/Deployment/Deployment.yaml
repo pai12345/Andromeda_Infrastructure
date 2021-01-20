@@ -6,6 +6,9 @@ metadata:
   labels:
     name: {{ .Release.Name }}-depl
     tier: {{ .Values.Deployment.tier }}
+  annotations:
+    helm.sh/hook-weight: "0"
+    helm.sh/hook-delete-policy: before-hook-creation
 spec:
   replicas: {{ .Values.Deployment.pod.replicas }}
   selector:

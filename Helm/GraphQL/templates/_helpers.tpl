@@ -1,4 +1,5 @@
-# Configmap - Data
+#=======================Configmap=========================#
+# data
 {{- define "andromeda.charts.configmap.data" }}
  {{- range $key, $val := .Values.ConfigMap.data }}
   {{- if eq $key "DEV_GRAPHQL_GENERATE_SOURCEMAP" }}
@@ -9,14 +10,26 @@
  {{- end }}
 {{- end }}
 
-# Secrets - Data
+#annotations
+{{- define "andromeda.charts.configmap.annotations" }}
+ {{- range $key, $val := .Values.ConfigMap.helm_annotations }}
+  {{- if eq $key "helm.sh/hook-weight" }}
+   {{ $key }}: {{ $val | quote }}
+  {{- else}}
+   {{ $key }}: {{ $val}}
+  {{- end }}
+ {{- end }}
+{{- end }}
+#========================Secrets==========================#
+# data
 {{- define "andromeda.charts.secrets.data" }}
  {{- range $key, $val := .Values.Secrets.data }}
   {{ $key }}: {{ $val}}
  {{- end }}
 {{- end }}
 
-# Pod  - Labels
+#=========================Pods=============================#
+# labels
 {{- define "andromeda.charts.pod.label" }}
   app: {{ .Release.Name }}-pod
   tier: {{ .Values.Deployment.pod.tier }}

@@ -6,6 +6,9 @@ metadata:
   labels:
     name: {{ .Release.Name }}-svc
     tier: {{ .Values.Service.tier }}
+  annotations:
+    helm.sh/hook-weight: "0"
+    helm.sh/hook-delete-policy: before-hook-creation
 spec:
   type: {{ .Values.Service.type }}
   selector:
