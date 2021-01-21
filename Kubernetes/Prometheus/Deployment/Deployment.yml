@@ -2,18 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prometheus-deployment
-  namespace: monitoring
+  namespace: dev
   labels:
-    app: prometheus-server
+    app: prometheus-deployment
+    tier: monitoring
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prometheus-server
+      app: prometheus-pod
+      tier: monitoring
   template:
     metadata:
       labels:
-        app: prometheus-server
+        app: prometheus-pod
+        tier: monitoring
     spec:
       containers:
         - name: prometheus
@@ -32,7 +35,7 @@ spec:
         - name: prometheus-config-volume
           configMap:
             defaultMode: 420
-            name: prometheus-server-conf
+            name: prometheus-conf
 
         - name: prometheus-storage-volume
           emptyDir: {}
