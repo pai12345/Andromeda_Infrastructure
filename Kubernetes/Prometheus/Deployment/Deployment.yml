@@ -25,7 +25,39 @@ spec:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
           ports:
-            - containerPort: 9090
+            - name: prometheus-port
+              containerPort: 9090
+              protocol: TCP
+
+          startupProbe:
+            httpGet:
+              path: /
+              port: prometheus-port
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+                      
+          readinessProbe:
+            httpGet:
+              path: /
+              port: prometheus-port
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: prometheus-port
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+
           volumeMounts:
             - name: prometheus-config-volume
               mountPath: /etc/prometheus/
@@ -34,8 +66,7 @@ spec:
       volumes:
         - name: prometheus-config-volume
           configMap:
-            defaultMode: 420
+            defaultMode: 0777
             name: prometheus-conf
-
         - name: prometheus-storage-volume
           emptyDir: {}
