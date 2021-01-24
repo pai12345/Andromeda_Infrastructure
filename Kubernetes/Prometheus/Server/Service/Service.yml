@@ -2,10 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prometheus-service
+  namespace: dev
   labels:
     app: prometheus-service
     tier: server
-  namespace: default
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "9090"

@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: prometheus-config
+  namespace: dev
   labels:
     app: prometheus-config
     tier: server 
-  name: prometheus-config
-  namespace: default
 data:
   alerting_rules.yml: |
     {}
