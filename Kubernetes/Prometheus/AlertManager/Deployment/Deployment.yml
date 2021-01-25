@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: prometheus-deployment
+    app: prometheus-alert-deployment
     tier: alertmanager
-  name: prometheus-deployment
+  name: prometheus-alert-deployment
   namespace: dev
 spec:
   selector:
     matchLabels:
-      app: prometheus-pod
+      app: prometheus-alert-pod
       tier: alertmanager
   replicas: 1
   template:
     metadata:
       labels:
-        app: prometheus-pod
+        app: prometheus-alert-pod
         tier: alertmanager
     spec:
-      serviceAccountName: prometheus-serviceaccount
+      serviceAccountName: prometheus-alert-serviceaccount
       containers:
         - name: prometheus-alertmanager
           image: "quay.io/prometheus/alertmanager:v0.21.0"
@@ -43,8 +43,7 @@ spec:
               port: 9093
             initialDelaySeconds: 30
             timeoutSeconds: 30
-          resources:
-            {}
+          resources: {}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
@@ -57,8 +56,7 @@ spec:
           args:
             - --volume-dir=/etc/config
             - --webhook-url=http://127.0.0.1:9093/-/reload
-          resources:
-            {}
+          resources: {}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
@@ -71,6 +69,6 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: prometheus-config
+            name: prometheus-alert-config
         - name: storage-volume
           emptyDir: {}

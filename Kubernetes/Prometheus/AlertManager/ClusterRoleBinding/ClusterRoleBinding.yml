@@ -1,15 +1,15 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  labels: 
-    app: prometheus-clusterrolebinding
+  labels:
+    app: prometheus-alert-clusterrolebinding
     tier: alertmanager
-  name: prometheus-clusterrolebinding
+  name: prometheus-alert-clusterrolebinding
 subjects:
   - kind: ServiceAccount
-    name: prometheus-serviceaccount
+    name: prometheus-alert-serviceaccount
     namespace: dev
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus-clusterrole
+  name: prometheus-alert-clusterrole

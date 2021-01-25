@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: prometheus-service
+    app: prometheus-alert-service
     tier: alertmanager
-  name: prometheus-service
+  name: prometheus-alert-service
   namespace: dev
 spec:
   ports:
@@ -13,7 +13,7 @@ spec:
       protocol: TCP
       targetPort: 9093
   selector:
-    app: prometheus-pod
+    app: prometheus-alert-pod
     tier: alertmanager
   sessionAffinity: None
   type: ClusterIP

@@ -61,11 +61,8 @@ spec:
         runAsUser: 65534
       volumes:
         - name: proc
-          hostPath:
-            path: /proc
+          emptyDir: {}
         - name: sys
-          hostPath:
-            path: /sys
+          emptyDir: {}
         - name: root
-          hostPath:
-            path: /
+          emptyDir: {}
