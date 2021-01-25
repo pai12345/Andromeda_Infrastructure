@@ -1,0 +1,8 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: prometheus-alert-clusterrole
+    tier: alertmanager
+  name: prometheus-alert-clusterrole
+rules: []

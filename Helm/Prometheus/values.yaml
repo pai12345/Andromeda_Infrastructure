@@ -1,0 +1,96 @@
+#=========GraphQL===========#
+# Namespace
+NameSpace:
+  name: dev
+  labels:
+    name: dev
+    istioinjection: enabled
+
+# ConfigMap
+ConfigMap:
+  tier: config
+  data:
+    DEV_GRAPHQL_GENERATE_SOURCEMAP: false
+    DEV_MONGODB_TYPE: mongodb
+    DEV_MONGODB_TYPEADDITION: srv
+
+# Secrets
+Secrets:
+  type: Opaque
+  data:
+    DEV_MONGODB_USERNAME: YWRtaW4K
+    DEV_MONGODB_PASSWORD: YWRtaW4K
+    DEV_MONGODB_HOST: Y2x1c3Rlci1hbmRyb21lZGEubXMwOWwubW9uZ29kYi5uZXQK
+    DEV_MONGODB_DATABASE: QW5kcm9tZWQK
+    DEV_MONGODB_RETRYWRITES: dHJ1ZQo=
+    DEV_MONGODB_WRITECONCERN: bWFqb3JpdHkK
+    DEV_POSTGRESQL_PGUSER: cG9zdGdyZXMK
+    DEV_POSTGRESQL_PGPASSWORD: YWRtaW4K
+    DEV_POSTGRESQL_PGDATABASE: cG9zdGdyZXMK
+    DEV_POSTGRESQL_PGPORT: NTQzMgo=
+    DEV_POSTGRESQL_PGHOST: bG9jYWxob3N0Cg==
+    DEV_GRAPHQL_ENCRYPTION_KEY: ZVRoV21acTR0N3dDJkYpSkBOY1JmVWpYbjJyNXUK
+
+# Deployment
+Deployment:
+  tier: backend
+  pod:
+    replicas: 1
+    tier: backend
+    version: graphql-version
+    containers:
+      name: nodegraphql
+      image: nodegraphql:lts
+      imagePullPolicy: IfNotPresent
+    ports:
+      name: graphql-port
+      containerPort: 8000
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsUser: 0
+    startupProbe:
+      port: graphql-port
+      periodSeconds: 30
+      timeoutSeconds: 30
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      port: graphql-port
+      initialDelaySeconds: 1
+      periodSeconds: 30
+      timeoutSeconds: 30
+      successThreshold: 1
+      failureThreshold: 3
+    livenessProbe:
+      port: graphql-port
+      initialDelaySeconds: 1
+      periodSeconds: 30
+      timeoutSeconds: 30
+      successThreshold: 1
+      failureThreshold: 3
+
+# Service
+Service:
+  tier: backend
+  type: NodePort
+  ports:
+    port: 8000
+    targetPort: 8000
+    protocol: TCP
+
+#Annotations
+Annotation_Common:
+  Stage0:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-10"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-failed
+  Stage1:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-5"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-failed
+  Stage2:
+    helm.sh/hook-weight: "0"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-failed
+  Stage3:
+    helm.sh/hook-weight: "1"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-failed

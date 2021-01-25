@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/name: kube-state-metrics
+    helm.sh/chart: kube-state-metrics-2.9.7
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: testchart
+  name: testchart-kube-state-metrics
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: testchart-kube-state-metrics
+subjects:
+  - kind: ServiceAccount
+    name: testchart-kube-state-metrics
+    namespace: dev
