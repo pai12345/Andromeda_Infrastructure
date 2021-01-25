@@ -12,6 +12,6 @@ roleRef:
   kind: ClusterRole
   name: testchart-kube-state-metrics
 subjects:
-- kind: ServiceAccount
-  name: testchart-kube-state-metrics
-  namespace: default
+  - kind: ServiceAccount
+    name: testchart-kube-state-metrics
+    namespace: dev

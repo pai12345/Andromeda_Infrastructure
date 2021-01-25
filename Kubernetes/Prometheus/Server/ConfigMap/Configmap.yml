@@ -5,7 +5,7 @@ metadata:
   namespace: dev
   labels:
     app: prometheus-config
-    tier: server 
+    tier: server
 data:
   alerting_rules.yml: |
     {}

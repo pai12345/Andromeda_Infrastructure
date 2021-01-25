@@ -8,7 +8,7 @@ metadata:
     chart: prometheus-13.2.1
     heritage: Helm
   name: testchart-prometheus-node-exporter
-  namespace: default
+  namespace: dev
 spec:
   selector:
     matchLabels:
@@ -40,12 +40,11 @@ spec:
             - name: metrics
               containerPort: 9100
               hostPort: 9100
-          resources:
-            {}
+          resources: {}
           volumeMounts:
             - name: proc
               mountPath: /host/proc
-              readOnly:  true
+              readOnly: true
             - name: sys
               mountPath: /host/sys
               readOnly: true

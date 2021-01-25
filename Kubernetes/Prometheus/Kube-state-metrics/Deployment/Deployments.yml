@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: testchart-kube-state-metrics
-  namespace: default
+  namespace: dev
   labels:
     app.kubernetes.io/name: kube-state-metrics
     helm.sh/chart: "kube-state-metrics-2.9.7"
@@ -26,106 +26,75 @@ spec:
         runAsGroup: 65534
         runAsUser: 65534
       containers:
-      - name: kube-state-metrics
-        args:
+        - name: kube-state-metrics
+          args:
+            - --collectors=certificatesigningrequests
 
-        - --collectors=certificatesigningrequests
+            - --collectors=configmaps
 
+            - --collectors=cronjobs
 
-        - --collectors=configmaps
+            - --collectors=daemonsets
 
+            - --collectors=deployments
 
-        - --collectors=cronjobs
+            - --collectors=endpoints
 
+            - --collectors=horizontalpodautoscalers
 
-        - --collectors=daemonsets
+            - --collectors=ingresses
 
+            - --collectors=jobs
 
-        - --collectors=deployments
+            - --collectors=limitranges
 
+            - --collectors=mutatingwebhookconfigurations
 
-        - --collectors=endpoints
+            - --collectors=namespaces
 
+            - --collectors=networkpolicies
 
-        - --collectors=horizontalpodautoscalers
+            - --collectors=nodes
 
+            - --collectors=persistentvolumeclaims
 
-        - --collectors=ingresses
+            - --collectors=persistentvolumes
 
+            - --collectors=poddisruptionbudgets
 
-        - --collectors=jobs
+            - --collectors=pods
 
+            - --collectors=replicasets
 
-        - --collectors=limitranges
+            - --collectors=replicationcontrollers
 
+            - --collectors=resourcequotas
 
-        - --collectors=mutatingwebhookconfigurations
+            - --collectors=secrets
 
+            - --collectors=services
 
-        - --collectors=namespaces
+            - --collectors=statefulsets
 
+            - --collectors=storageclasses
 
-        - --collectors=networkpolicies
+            - --collectors=validatingwebhookconfigurations
 
+            - --collectors=volumeattachments
 
-        - --collectors=nodes
-
-
-        - --collectors=persistentvolumeclaims
-
-
-        - --collectors=persistentvolumes
-
-
-        - --collectors=poddisruptionbudgets
-
-
-        - --collectors=pods
-
-
-        - --collectors=replicasets
-
-
-        - --collectors=replicationcontrollers
-
-
-        - --collectors=resourcequotas
-
-
-        - --collectors=secrets
-
-
-        - --collectors=services
-
-
-        - --collectors=statefulsets
-
-
-        - --collectors=storageclasses
-
-
-        - --collectors=validatingwebhookconfigurations
-
-
-
-        - --collectors=volumeattachments
-
-
-
-
-        imagePullPolicy: IfNotPresent
-        image: "quay.io/coreos/kube-state-metrics:v1.9.7"
-        ports:
-        - containerPort: 8080
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 8080
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
+          imagePullPolicy: IfNotPresent
+          image: "quay.io/coreos/kube-state-metrics:v1.9.7"
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 5

@@ -10,7 +10,7 @@ metadata:
     chart: prometheus-13.2.1
     heritage: Helm
   name: testchart-prometheus-pushgateway
-  namespace: default
+  namespace: dev
 spec:
   ports:
     - name: http

@@ -8,7 +8,7 @@ metadata:
     chart: prometheus-13.2.1
     heritage: Helm
   name: testchart-prometheus-pushgateway
-  namespace: default
+  namespace: dev
 spec:
   selector:
     matchLabels:
@@ -45,8 +45,7 @@ spec:
               port: 9091
             initialDelaySeconds: 10
             timeoutSeconds: 10
-          resources:
-            {}
+          resources: {}
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534
