@@ -8,11 +8,19 @@ metadata:
   namespace: dev
 data:
   alertmanager.yml: |
-    global: {}
-    receivers:
-    - name: default-receiver
+    global: 
+     slack_api_url: 'https://hooks.slack.com/services/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'
     route:
-      group_interval: 5m
-      group_wait: 10s
-      receiver: default-receiver
-      repeat_interval: 3h
+      group_by: ['alertname']
+      group_wait: 5s
+      group_interval: 1m
+      repeat_interval: 10m
+      receiver: 'slack'
+      
+    receivers:
+    - name: 'slack'
+      slack_configs:
+        - channel: '#prometheus'
+          icon_emoji: ':alert:'
+          send_resolved: true
+          text: "Test Message"
