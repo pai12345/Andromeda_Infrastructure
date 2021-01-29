@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-depl-notfound
+  namespace: dev
+  labels:
+    name: dev-depl-notfound
+    tier: serverless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:  dev-pod-notfound
+      tier: serverless
+  template:
+    metadata:
+      name:  dev-pod-notfound
+      labels:
+        app: dev-pod-notfound
+        tier: serverless
+        version: notfound-version
+    spec:
+      containers:
+        - name: gonotfound
+          image: gonotfound:lts
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: notfound-port
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+            
+          startupProbe:
+            httpGet:
+              path: /
+              port: notfound-port
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+                      
+          readinessProbe:
+            httpGet:
+              path: /
+              port: notfound-port
+            initialDelaySeconds: 1
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: notfound-port
+            initialDelaySeconds: 1
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
