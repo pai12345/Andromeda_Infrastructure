@@ -78,6 +78,10 @@ Service:
     targetPort: 8000
     protocol: TCP
 
+#PodDisruptionBudget
+PodDisruptionBudget:
+  minAvailable: 1
+
 #Annotations
 Annotation_Common:
   Stage0:
