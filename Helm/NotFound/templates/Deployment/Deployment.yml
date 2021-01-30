@@ -10,11 +10,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app:  dev-pod-notfound
+      app: dev-pod-notfound
       tier: serverless
   template:
     metadata:
-      name:  dev-pod-notfound
+      name: dev-pod-notfound
       labels:
         app: dev-pod-notfound
         tier: serverless
@@ -24,13 +24,20 @@ spec:
         - name: gonotfound
           image: gonotfound:lts
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: 30mi
+              cpu: 100m
+            limits:
+              memory: 500mi
+              cpu: 150m
           ports:
             - name: notfound-port
               containerPort: 8080
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 0
-            
+
           startupProbe:
             httpGet:
               path: /
@@ -39,7 +46,7 @@ spec:
             timeoutSeconds: 30
             successThreshold: 1
             failureThreshold: 3
-                      
+
           readinessProbe:
             httpGet:
               path: /
