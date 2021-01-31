@@ -42,6 +42,13 @@ Deployment:
       name: nodegraphql
       image: nodegraphql:lts
       imagePullPolicy: IfNotPresent
+      resources:
+        requests:
+          memory: 10Mi
+          cpu: 100m
+        limits:
+          memory: 15Mi
+          cpu: 100m
     ports:
       name: graphql-port
       containerPort: 8000

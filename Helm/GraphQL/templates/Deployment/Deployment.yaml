@@ -25,6 +25,13 @@ spec:
         - name: {{ .Values.Deployment.pod.containers.name }}
           image: {{ .Values.Deployment.pod.containers.image }}
           imagePullPolicy: {{ .Values.Deployment.pod.containers.imagePullPolicy }}
+          resources:
+            requests:
+              memory: {{ .Values.Deployment.pod.containers.resources.requests.memory }}
+              cpu: {{ .Values.Deployment.pod.containers.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.Deployment.pod.containers.resources.limits.memory }}
+              cpu: {{ .Values.Deployment.pod.containers.resources.limits.cpu }}
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-configmap
