@@ -7,6 +7,6 @@ metadata:
     name: {{ .Release.Name }}-configmap
     tier: {{ .Values.ConfigMap.tier }}
  annotations:
-{{- include "andromeda.charts.annotations.stage1" . | indent 2 }}
+{{- include "andromeda.charts.annotations.stage2" . | indent 2 }}
 data:
 {{- include "andromeda.charts.configmap.data" . | indent 2 }}

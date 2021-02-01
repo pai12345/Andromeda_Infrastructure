@@ -3,6 +3,8 @@ kind: PodDisruptionBudget
 metadata:
   name: {{ .Release.Name }}-pdb
   namespace: {{ .Values.NameSpace.name }}
+  annotations:
+{{- include "andromeda.charts.annotations.stage2" . | indent 2 }}
 spec:
   minAvailable: {{ .Values.PodDisruptionBudget.minAvailable }}
   selector:

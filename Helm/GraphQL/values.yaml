@@ -46,11 +46,11 @@ Deployment:
       imagePullPolicy: IfNotPresent
       resources:
         requests:
-          memory: 10Mi
+          memory: 80Mi
           cpu: 100m
         limits:
-          memory: 15Mi
-          cpu: 100m
+          memory: 100Mi
+          cpu: 120m
     ports:
       name: graphql-port
       containerPort: 8000
