@@ -35,6 +35,12 @@ Secrets:
 Deployment:
   tier: backend
   pod:
+    affinity:
+      key: andr
+      operator: In
+      values:
+        - istio
+        - andromeda
     replicas: 1
     tier: backend
     version: graphql-version

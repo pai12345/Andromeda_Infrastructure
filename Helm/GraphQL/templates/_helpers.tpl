@@ -26,6 +26,21 @@
   version: {{ .Values.Deployment.pod.version }}
 {{- end }}
 
+#==========================Node============================#
+# affinity
+{{- define "andromeda.charts.node.affinity" }}
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: {{ .Values.Deployment.pod.affinity.key }}
+                operator: {{ .Values.Deployment.pod.affinity.operator }}
+                values:
+                {{- range .Values.Deployment.pod.affinity.values }}
+                - {{ . }}
+                {{- end }}
+{{- end }}
 
 #======================annotations=========================#
 # Stage 0

@@ -7,7 +7,7 @@ metadata:
     name: {{ .Release.Name }}-depl
     tier: {{ .Values.Deployment.tier }}
   annotations:
-{{- include "andromeda.charts.annotations.stage3" . | indent 2}}
+{{- include "andromeda.charts.annotations.stage3" . | indent 2 }}
 spec:
   replicas: {{ .Values.Deployment.pod.replicas }}
   selector:
@@ -21,6 +21,7 @@ spec:
         tier: {{ .Values.Deployment.pod.tier }}
         version: {{ .Values.Deployment.pod.version }}
     spec:
+{{- include "andromeda.charts.node.affinity" . | indent 4 }}
       containers:
         - name: {{ .Values.Deployment.pod.containers.name }}
           image: {{ .Values.Deployment.pod.containers.image }}
