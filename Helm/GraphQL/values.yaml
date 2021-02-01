@@ -2,9 +2,6 @@
 # Namespace
 NameSpace:
   name: dev
-  labels:
-    name: dev
-    istioinjection: enabled
 
 # ConfigMap
 ConfigMap:
@@ -39,7 +36,6 @@ Deployment:
       key: andr
       operator: In
       values:
-        - istio
         - andromeda
     replicas: 1
     tier: backend
