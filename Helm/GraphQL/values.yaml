@@ -37,6 +37,11 @@ Deployment:
       operator: In
       values:
         - andromeda
+    tolerations:
+      key: andr-istio
+      operator: Exists
+      value: istio
+      effect: NoSchedule
     replicas: 1
     tier: backend
     version: graphql-version
