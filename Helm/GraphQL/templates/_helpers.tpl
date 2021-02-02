@@ -41,15 +41,6 @@
                 - {{ . }}
                 {{- end }}
 {{- end }}
-
-# Toleration
-{{- define "andromeda.charts.node.toleration" }}
-  tolerations:
-    - key: {{ .Values.Deployment.pod.tolerations.key | quote }}
-      operator: {{ .Values.Deployment.pod.tolerations.operator | quote }}
-      value: {{ .Values.Deployment.pod.tolerations.value | quote }}
-      effect: {{ .Values.Deployment.pod.tolerations.effect | quote }}
-{{- end }}
 #======================annotations=========================#
 # Stage 0
 {{- define "andromeda.charts.annotations.stage0" }}

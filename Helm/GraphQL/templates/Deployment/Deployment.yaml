@@ -22,7 +22,6 @@ spec:
         version: {{ .Values.Deployment.pod.version }}
     spec:
 {{- include "andromeda.charts.node.affinity" . | indent 4 }}
-{{- include "andromeda.charts.node.toleration" . | indent 4 }}
       containers:
         - name: {{ .Values.Deployment.pod.containers.name }}
           image: {{ .Values.Deployment.pod.containers.image }}
