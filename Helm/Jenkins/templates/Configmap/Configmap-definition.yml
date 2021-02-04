@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+  labels:
+    name: {{ .Release.Name }}-configmap
+    tier: integration
+data:
+  JENKINS_USERNAME: admin
+  JENKINS_PASSWORD: admin

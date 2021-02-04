@@ -1,0 +1,15 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Chart Name: {{ .Chart.Name }}
+Date: {{ now }}
+Chart Version: {{ .Chart.Version }}
+Chart Description: {{ .Chart.Description}}
+Release name: {{ .Release.Name }}
+IsUpgrade: {{ .Release.IsUpgrade }}
+IsInstall: {{ .Release.IsInstall }}
+
+
+To learn more about the release, try:
+
+ - helm status {{ .Release.Name }}
+ - helm get manifest {{ .Release.Name }}
