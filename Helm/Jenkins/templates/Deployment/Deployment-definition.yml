@@ -1,34 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-deployment
+  name: {{ .Release.Name }}-depl
+  namespace: jenkins
   labels:
-    app: {{ .Release.Name }}-deployment
+    name: {{ .Release.Name }}-depl
     tier: integration
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-pod
+      name: {{ .Release.Name }}-pod
       tier: integration
+  replicas: 1
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-pod
+        name: {{ .Release.Name }}-pod
         tier: integration
     spec:
       containers:
         - name: jenkins
-          image: jenkins/jenkins:lts
+          image: jenkins/jenkins
           ports:
-            - containerPort: 8080
-            - containerPort: 50000
+            - name: http-port
+              containerPort: 8080
+            - name: jnlp-port
+              containerPort: 50000
           volumeMounts:
-            - name: jenkins-volume
+            - name: jenkins-home
               mountPath: /var/jenkins_home
-          securityContext:
-            allowPrivilegeEscalation: false
-            runAsUser: 0
       volumes:
-        - name: jenkins-volume
+        - name: jenkins-home
           emptyDir: {}
