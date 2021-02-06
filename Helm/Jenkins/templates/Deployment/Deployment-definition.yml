@@ -31,4 +31,5 @@ spec:
               mountPath: /var/jenkins_home
       volumes:
         - name: jenkins-home
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-volume-claim
