@@ -9,3 +9,4 @@ spec:
     matchLabels:
       app: dev-pod-notfound
       tier: serverless
+      version: notfound-version
