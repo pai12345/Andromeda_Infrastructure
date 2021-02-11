@@ -11,3 +11,9 @@ spec:
       version: notfound-version
   policyTypes:
     - Egress
+    - Ingress
+  ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            istio-injection: enabled
