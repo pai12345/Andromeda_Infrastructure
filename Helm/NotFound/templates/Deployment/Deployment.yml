@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: gonotfound
-          image: gonotfound:lts
+          image: dev.local/gonotfound:lts
           imagePullPolicy: IfNotPresent
           resources:
             requests:
