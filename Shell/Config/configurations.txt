@@ -2,9 +2,16 @@
 //Kuberentes
 Install kubeadm: kubeadm init --pod-network-cidr 10.244.0.0/16
 
-//git & docker add nameserver
+//network config
 Edit resolv.config: sudo vim /etc/resolv.conf
 Add nameserver: nameserver 8.8.8.8 nameserver 8.8.4.4
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+value of DNS: nmcli dev show | grep 'DNS'
+Modify Docker DNS: vim /etc/docker/daemon.json 
+Expose to outside network : "dns":["192.168.43.87","8.8.8.8"]
+
 
 //docker
 Restart server - service docker restart
