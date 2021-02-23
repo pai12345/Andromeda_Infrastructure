@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-pgadmin-deployment
+  labels:
+    name: {{ .Release.Name }}-pgadmin-deployment
+    tier: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-pgadmin-pod
+      tier: web
+  template:
+    metadata:
+      name: {{ .Release.Name }}-pgadmin-pod
+      labels:
+        name: {{ .Release.Name }}-pgadmin-pod
+        tier: web
+    spec:
+      containers:
+        - name: pgadmin4
+          image: dpage/pgadmin4
+          ports:
+            - name: pgadmin4-port
+              containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-pgadmin-configmap
+
+          volumeMounts:
+            - mountPath: /var/lib/pgadmin
+              name: pgadmin
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+      volumes:
+        - name: pgadmin
+          emptyDir: {}

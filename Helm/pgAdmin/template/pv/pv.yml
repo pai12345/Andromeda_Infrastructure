@@ -1,0 +1,15 @@
+# kind: PersistentVolume
+# apiVersion: v1
+# metadata:
+#   name: pgadmin-pv-volume
+#   labels:
+#     type: local
+#     app: pgadmin
+# spec:
+#   storageClassName: manual
+#   capacity:
+#     storage: 3Gi
+#   accessModes:
+#     - ReadWriteMany
+#   hostPath:
+#     path: "/mnt/data2"
