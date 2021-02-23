@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-postgresql-configmap
+  namespace: dev
   labels:
     name: {{ .Release.Name }}-postgresql-configmap
     tier: database

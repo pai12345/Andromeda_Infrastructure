@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-postgresql-deployment
+  namespace: dev
   labels:
     name: {{ .Release.Name }}-postgresql-deployment
     tier: database
