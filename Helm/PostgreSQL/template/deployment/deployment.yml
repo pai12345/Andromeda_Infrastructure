@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-postgresql-deployment
+  labels:
+    name: {{ .Release.Name }}-postgresql-deployment
+    tier: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-postgresql-pod
+      tier: database
+  template:
+    metadata:
+      name: {{ .Release.Name }}-postgresql-pod
+      labels:
+        name: {{ .Release.Name }}-postgresql-pod
+        tier: database
+    spec:
+      containers:
+        - name: postgresql
+          image: postgres
+          ports:
+            - name: postgresql-port
+              containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-postgresql-configmap
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb
+      volumes:
+        - name: postgredb
+          emptyDir: {}

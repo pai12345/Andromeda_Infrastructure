@@ -1,1 +1,1 @@
-Andromeda Kubernetes Artifacts
+Andromeda Kubernetes Helm Charts

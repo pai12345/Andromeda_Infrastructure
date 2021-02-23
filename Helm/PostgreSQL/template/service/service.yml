@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-postgresql-service
+  labels:
+    name: {{ .Release.Name }}-postgresql-service
+    tier: databases
+spec:
+  type: NodePort
+  ports:
+    - port: 5432
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    name: {{ .Release.Name }}-postgresql-pod
+    tier: database

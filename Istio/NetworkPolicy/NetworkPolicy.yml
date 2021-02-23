@@ -6,7 +6,8 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      istio: ingress
+      app: istio-ingressgateway
+      istio: ingressgateway
   ingress:
   - ports:
     - protocol: TCP

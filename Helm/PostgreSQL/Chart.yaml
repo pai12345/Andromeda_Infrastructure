@@ -1,0 +1,9 @@
+apiVersion: v2
+name: PostgreSQL
+description: A Helm chart for Kubernetes
+type: application
+keywords: 
+  - PostgreSQL
+version: 0.1.0
+appVersion: 1.16.0
+icon: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGOX9HYqthc5dDnwWR0DpW_xtXUYJODvQiIQ&usqp=CAU
