@@ -7,5 +7,5 @@ metadata:
     name: {{ .Release.Name }}-pgadmin-configmap
     tier: weba
 data:
-  PGADMIN_DEFAULT_EMAIL: test
-  PGADMIN_DEFAULT_PASSWORD: password
+  PGADMIN_DEFAULT_EMAIL: admin
+  PGADMIN_DEFAULT_PASSWORD: admin
