@@ -1,0 +1,71 @@
+# kind: ConfigMap
+# apiVersion: v1
+# metadata:
+#   name: alertmanager-config
+#   namespace: monitoring
+# data:
+#   config.yml: |-
+#     global:
+#     templates:
+#     - '/etc/alertmanager/*.tmpl'
+#     route:
+#       receiver: alert-emailer
+#       group_by: ['alertname', 'priority']
+#       group_wait: 10s
+#       repeat_interval: 30m
+#       routes:
+#         - receiver: slack_demo
+#         # Send severity=slack alerts to slack.
+#           match:
+#             severity: slack
+#           group_wait: 10s
+#           repeat_interval: 1m
+ 
+#     receivers:
+#     - name: alert-emailer
+#       email_configs:
+#       - to: demo@devopscube.com
+#         send_resolved: false
+#         from: from-email@email.com
+#         smarthost: smtp.eample.com:25
+#         require_tls: false
+#     - name: slack_demo
+#       slack_configs:
+#       - api_url: https://hooks.slack.com/services/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sz4Qk
+#         channel: '#devopscube-demo'
+
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alertmanager-config
+  namespace: monitoring
+data:
+  config.yml: |-
+    route:
+      receiver: admin
+      group_wait: 30s
+      group_interval: 30s
+      repeat_interval: 30s
+      routes:
+        - match:
+            app_type: (testalert1|testalert2|testalert3)
+          receiver: admin
+          group_by: [server]
+    
+    inhibit_rules:
+      - source_match:
+          severity: "critical"
+        target_match_re:
+          severity: (warn|info)
+        equal: ["server"]
+    
+    receivers:
+      - name: admin
+        email_configs:
+          - to: "chessautomationtools@gmail.com"
+            from: "chessautomationtools@gmail.com"
+            smarthost: smtp.gmail.com:587
+            auth_username: "chessautomationtools@gmail.com"
+            auth_identity: "chessautomationtools@gmail.com"
+            auth_password: "Dragonball123!!"

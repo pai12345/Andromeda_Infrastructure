@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-depl-repo
+  namespace: dev
+  labels:
+    name: dev-depl-repo
+    tier: serverless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dev-pod-repo
+      tier: serverless
+  template:
+    metadata:
+      name: dev-pod-repo
+      labels:
+        app: dev-pod-repo
+        tier: serverless
+        version: repo-version
+    spec:
+      containers:
+        - name: repoapp
+          image: repoapp:lts
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: 10Mi
+              cpu: 100m
+            limits:
+              memory: 15Mi
+              cpu: 100m
+          ports:
+            - name: repo-port
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+
+          startupProbe:
+            httpGet:
+              path: /
+              port: repo-port
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: repo-port
+            initialDelaySeconds: 1
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: repo-port
+            initialDelaySeconds: 1
+            periodSeconds: 30
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3

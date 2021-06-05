@@ -1,0 +1,48 @@
+# Patterns to ignore when building packages.
+# This supports shell glob matching, relative path matching, and
+# negation (prefixed with !). Only one pattern per line.
+
+# bzr
+.bzr/
+.bzrignore
+
+# env
+.env
+
+# docker
+.dockerignore
+Dockerfile
+
+# hg
+.hg/
+.hgignore
+
+# svn
+.svn/
+.svn
+
+# git
+.git/
+.git
+.gitignore
+
+# test
+tests/
+
+# Common backup files
+*.swp
+*.bak
+*.tmp
+*.orig
+*~
+
+# Various IDEs
+.project
+.idea/
+*.tmproj
+.vscode/
+
+# misc
+.DS_Store
+README.md
+LICENSE.md
