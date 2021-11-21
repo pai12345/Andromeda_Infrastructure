@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-depl-datapuller
+  namespace: dev
+  labels:
+    name: dev-depl-datapuller
+    tier: serverless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dev-pod-datapuller
+      tier: serverless
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      name: dev-pod-datapuller
+      labels:
+        app: dev-pod-datapuller
+        tier: serverless
+    spec:
+      containers:
+        - name: datapuller
+          image: dockerdemopai/andromeda:v0.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: datapuller-port
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
