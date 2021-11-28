@@ -1,0 +1,69 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: alb-ingress
+#   # namespace: dev
+#   annotations:
+#     # kubernetes.io/ingress.class: alb
+#     # external-dns.alpha.kubernetes.io/hostname: jenkins.jarombek.io,www.jenkins.jarombek.io
+#     # alb.ingress.kubernetes.io/backend-protocol: HTTP
+#     # alb.ingress.kubernetes.io/scheme: internet-facing
+#     # alb.ingress.kubernetes.io/certificate-arn: ${ACM_CERT_ARNS}
+#     # alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
+#     # alb.ingress.kubernetes.io/healthcheck-path: '/login'
+#     # alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+#     # alb.ingress.kubernetes.io/security-groups: ${SECURITY_GROUPS_ID}
+#     # alb.ingress.kubernetes.io/subnets: ${SUBNET_IDS}
+#     # alb.ingress.kubernetes.io/target-type: instance
+#     # alb.ingress.kubernetes.io/tags: Name=jenkins-load-balancer,Application=jenkins,Environment=${ENV}
+#       kubernetes.io/ingress.class: alb
+#       alb.ingress.kubernetes.io/scheme: internet-facing
+#       # alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
+#       alb.ingress.kubernetes.io/target-type: instance
+#   labels:
+#     version: v1.0.0
+#     environment: production
+#     application: jenkins-server
+# spec:
+#   rules:
+#     - host: jenkins.jarombek.io
+#       http:
+#         paths:
+#           - path: /*
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: dev-svc-notfound
+#                 port: 
+#                   number: 80
+#     # - host: www.jenkins.jarombek.io
+#     #   http:
+#     #     paths:
+#     #       - path: /*
+#     #         pathType: Prefix
+#     #         backend:
+#     #           service:
+#     #             name: dev-svc-notfound
+#     #             port: 
+#     #               number: 80
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: simple-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
+spec:
+  rules:
+    - host: "*.com"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: foo-app-service
+                port:
+                  number: 3000
