@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: overprovisioning
+  namespace: kube-system
+data:
+  linear: |-
+    { 
+      "coresPerReplica": 40
+    }

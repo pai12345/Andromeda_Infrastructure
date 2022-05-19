@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: overprovisioning-autoscaler
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: overprovisioning-autoscaler
+  template:
+    metadata:
+      labels:
+        app: overprovisioning-autoscaler
+    spec:
+      containers:
+        - image: k8s.gcr.io/cluster-proportional-autoscaler-amd64:1.1.2
+          name: autoscaler
+          command:
+            - /cluster-proportional-autoscaler
+            - --namespace=kube-system
+            - --configmap=overprovisioning
+            - --target=deployment/overprovisioning
+            - --logtostderr=true
+            - --v=2
+      serviceAccountName: cluster-proportional-autoscaler
