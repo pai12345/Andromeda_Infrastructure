@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-depl-ping1
+  namespace: default
+  labels:
+    name: dev-depl-ping1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name:  dev-pod-ping1
+  template:
+    metadata:
+      name:  dev-pod-ping1
+      labels:
+        name: dev-pod-ping1
+    spec:
+      containers:
+        - name: ping1
+          image: ping1:lts
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: ping1-port
+              containerPort: 5001
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0

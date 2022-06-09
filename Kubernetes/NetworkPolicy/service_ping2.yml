@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dev-svc-ping2
+  namespace: default
+  labels:
+    name: dev-svc-ping2
+spec:
+  type: NodePort
+  selector:
+    name: dev-pod-ping2
+  ports:
+    - port: 5002
+      targetPort: 5002
+      protocol: TCP

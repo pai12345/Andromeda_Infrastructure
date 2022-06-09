@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: andr-network-policy
+  namespace: default
+  labels:
+    name: andr-network-policy
+    type: policy
+spec:
+  podSelector:
+    matchLabels:
+      name: dev-depl-ping1
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              name: dev-depl-ping2
+      ports:
+        - protocol: TCP
+          port: 5002
