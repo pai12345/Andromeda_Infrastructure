@@ -11,9 +11,11 @@ spec:
   backoffLimit: 3
   template:
     spec:
+      restartPolicy: onFailure
       containers:
       - name: counter-container
         image: ubuntu:latest
         command: 
-          - "#!/bin/bash"
+          - "/bin/bash"
+          - "-c"
           - for i in {1..10}; do echo "iteration $i"; done
