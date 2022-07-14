@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rc-job
+  labels:
+    name: rc-job
+    type: job
+spec:
+  completions : 1
+  parallelism: 1
+  backoffLimit: 3
+  template:
+    spec:
+      containers:
+      - name: counter-container
+        image: ubuntu:latest
+        command: 
+          - "#!/bin/bash"
+          - for i in {1..10}; do echo "iteration $i"; done
