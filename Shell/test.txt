@@ -1,2 +1,2 @@
-kubeadm join 10.0.2.15:6443 --token m2haes.zaep9w3n6mfwl7sp \
-	--discovery-token-ca-cert-hash sha256:8af8ce9454d2cc4914e251b9f5385cb72821ab86954440cd3dbdd6852005cadb
+kubeadm join 10.0.2.15:6443 --token 57o1ea.gtgl58tc1qpcz4g4 \
+	--discovery-token-ca-cert-hash sha256:ae6bd81228b10feaeb2a7b8c6607599bd01bbcc58f0dfd33e6f181f22d8b378a
