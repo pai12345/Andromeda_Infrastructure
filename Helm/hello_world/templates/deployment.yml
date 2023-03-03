@@ -16,8 +16,8 @@ spec:
         app: pod-helloworld
     spec:
       containers:
-        - name: helloworld
-          image: helloworld:0.0.1
+        - name: {{ .Values.Deployment.containers.name }}
+          image: {{ .Values.Deployment.containers.image }}
           imagePullPolicy: IfNotPresent
           ports:
             - name: helloworld-port

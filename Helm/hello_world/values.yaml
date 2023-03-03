@@ -1,0 +1,5 @@
+# Deployment
+Deployment:
+  containers:
+    name: helloworld
+    image: helloworld:0.0.1
