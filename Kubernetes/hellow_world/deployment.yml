@@ -6,7 +6,7 @@ metadata:
   labels:
     name: depl-helloworld
 spec:
-  replicas: 1
+  # replicas: 1
   selector:
     matchLabels:
       app: pod-helloworld
