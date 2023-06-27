@@ -1,0 +1,7 @@
+apiVersion: api.andromeda.org/v1
+kind: s3-claim
+metadata:
+  name: s3-crossplane-claim
+  namespace: dev
+spec:
+  region: "EU"
