@@ -10,4 +10,4 @@ spec:
   forProvider:
     region: us-east-1
   providerConfigRef:
-    name: andromeda-providerconf
+    name: default

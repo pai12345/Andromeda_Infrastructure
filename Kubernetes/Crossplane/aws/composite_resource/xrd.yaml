@@ -6,7 +6,7 @@ spec:
   group: api.andromeda.org
   names:
     kind: s3
-    plural: s3
+    plural: s3s
   versions:
     - name: v1
       served: true
@@ -27,4 +27,4 @@ spec:
                 - region
   claimNames:
     kind: s3-claim
-    plural: s3-claim
+    plural: s3-claims
