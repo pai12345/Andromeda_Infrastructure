@@ -1,7 +1,13 @@
 apiVersion: api.andromeda.org/v1
-kind: s3-claim
+kind: bucket
 metadata:
-  name: s3-crossplane-claim
+  annotations:
+    type: crossplane
+  name: bucket
   namespace: dev
+  labels:
+    name: bucket
+    type: claim
+    project: andromeda
 spec:
   region: "EU"

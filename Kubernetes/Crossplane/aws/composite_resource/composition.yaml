@@ -1,18 +1,26 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: s3-crossplane-composition
+  name: bucket-composition
+  labels:
+    name: bucket-composition
+    type: composition
+    project: andromeda
 spec:
   compositeTypeRef:
     apiVersion: api.andromeda.org/v1
-    kind: bucket
+    kind: Xbucket
   resources:
-    - name: s3Bucket
+    - name: s3
       base:
         apiVersion: s3.aws.upbound.io/v1beta1
         kind: Bucket
         metadata:
-          name: andromeda-s3
+          name: bucket-andromeda
+          labels:
+            name: bucket-andromeda
+            type: composed-s3
+            project: andromeda
         spec:
           forProvider:
             region: us-east-1
