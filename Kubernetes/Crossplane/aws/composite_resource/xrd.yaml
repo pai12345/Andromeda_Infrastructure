@@ -24,9 +24,11 @@ spec:
               properties:
                 region:
                   type: string
-                  oneOf:
-                    - pattern: "^EU$"
-                    - pattern: "^US$"
+                tags:
+                  project:
+                    type: string
+                  type:
+                    type: string
               required:
                 - region
   claimNames:

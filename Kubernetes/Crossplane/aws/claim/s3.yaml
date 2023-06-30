@@ -11,3 +11,6 @@ metadata:
     project: andromeda
 spec:
   region: "EU"
+  tags:
+    project: andromeda
+    type: bucket

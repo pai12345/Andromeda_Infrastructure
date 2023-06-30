@@ -23,6 +23,13 @@ spec:
             project: andromeda
         spec:
           forProvider:
-            region: us-east-1
+            forceDestroy: true
           providerConfigRef:
             name: default
+      patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.properties.region
+          toFieldPath: spec.forProvider.region
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.properties.tags
+          toFieldPath: spec.forProvider.tags
