@@ -1,16 +1,16 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: Xbuckets.api.andromeda.org
+  name: xbuckets.api.andromeda.org
   labels:
-    name: Xbuckets.api.andromeda.org
+    name: xbuckets.api.andromeda.org
     type: xrd
     project: andromeda
 spec:
   group: api.andromeda.org
   names:
-    kind: Xbucket
-    plural: Xbuckets
+    kind: XBucket
+    plural: xbuckets
   versions:
     - name: v1
       served: true
@@ -30,5 +30,5 @@ spec:
               required:
                 - region
   claimNames:
-    kind: bucket
+    kind: Bucket
     plural: buckets

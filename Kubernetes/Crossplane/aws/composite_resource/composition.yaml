@@ -9,7 +9,7 @@ metadata:
 spec:
   compositeTypeRef:
     apiVersion: api.andromeda.org/v1
-    kind: Xbucket
+    kind: XBucket
   resources:
     - name: s3
       base:

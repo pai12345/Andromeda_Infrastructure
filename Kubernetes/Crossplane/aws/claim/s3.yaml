@@ -1,9 +1,9 @@
 apiVersion: api.andromeda.org/v1
-kind: bucket
+kind: Bucket
 metadata:
   annotations:
-    type: crossplane
-  name: bucket
+    type: crossplane-claim
+  name: andromeda-bucket
   namespace: dev
   labels:
     name: bucket
