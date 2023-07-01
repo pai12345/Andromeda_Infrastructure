@@ -10,6 +10,14 @@ spec:
   compositeTypeRef:
     apiVersion: api.andromeda.org/v1
     kind: XBucket
+  patchSets:
+    - name: region
+      patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.region
+          toFieldPath: spec.forProvider.region
+          policy:
+            fromFieldPath: Required
   resources:
     - name: s3
       base:
@@ -27,9 +35,8 @@ spec:
           providerConfigRef:
             name: default
       patches:
+        - type: PatchSet
+          patchSetName: region
         - type: FromCompositeFieldPath
-          fromFieldPath: spec.properties.region
-          toFieldPath: spec.forProvider.region
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.properties.tags
+          fromFieldPath: spec.tags
           toFieldPath: spec.forProvider.tags

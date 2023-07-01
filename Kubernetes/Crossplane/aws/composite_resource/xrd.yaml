@@ -25,12 +25,14 @@ spec:
                 region:
                   type: string
                 tags:
+                  type: object
                   project:
                     type: string
-                  type:
+                  resource_type:
                     type: string
               required:
                 - region
+                - tags
   claimNames:
     kind: Bucket
     plural: buckets

@@ -10,7 +10,7 @@ metadata:
     type: claim
     project: andromeda
 spec:
-  region: "EU"
+  region: us-east-1
   tags:
     project: andromeda
-    type: bucket
+    resource_type: bucket

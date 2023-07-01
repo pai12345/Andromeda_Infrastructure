@@ -5,6 +5,10 @@ kubectl get pods -n crossplane-system
 cd ../../..
 kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=./aws-credentials.txt
 cd -
+cd ../../Kubernetes/Global/Namespace
+pwd
+kubectl apply -f .
+cd -
 cd ../../Kubernetes/Crossplane/aws/provider
 kubectl apply -f provider.yaml
 kubectl apply -f provider-conf.yaml
