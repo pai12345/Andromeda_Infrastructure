@@ -1,10 +1,10 @@
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: andromeda-provider
+  name: s3-provider
   labels:
-    name: andromeda-provider
+    name: s3-provider
     type: provider
     project: andromeda
 spec:
-  package: xpkg.upbound.io/upbound/provider-aws:v0.27.0
+  package: xpkg.upbound.io/upbound/provider-aws-s3:v0.37.0

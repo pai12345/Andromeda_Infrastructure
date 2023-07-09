@@ -1,0 +1,42 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: bucket-composition
+  labels:
+    name: bucket-composition
+    type: composition
+    project: andromeda
+spec:
+  compositeTypeRef:
+    apiVersion: api.andromeda.org/v1
+    kind: XBucket
+  patchSets:
+    - name: region
+      patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.region
+          toFieldPath: spec.forProvider.region
+          policy:
+            fromFieldPath: Required
+  resources:
+    - name: s3
+      base:
+        apiVersion: s3.aws.upbound.io/v1beta1
+        kind: Bucket
+        metadata:
+          name: bucket-andromeda
+          labels:
+            name: bucket-andromeda
+            type: composed-s3
+            project: andromeda
+        spec:
+          forProvider:
+            forceDestroy: true
+          providerConfigRef:
+            name: default
+      patches:
+        - type: PatchSet
+          patchSetName: region
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.tags
+          toFieldPath: spec.forProvider.tags

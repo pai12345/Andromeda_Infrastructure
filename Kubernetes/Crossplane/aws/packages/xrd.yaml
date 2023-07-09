@@ -1,0 +1,38 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xbuckets.api.andromeda.org
+  labels:
+    name: xbuckets.api.andromeda.org
+    type: xrd
+    project: andromeda
+spec:
+  group: api.andromeda.org
+  names:
+    kind: XBucket
+    plural: xbuckets
+  versions:
+    - name: v1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                region:
+                  type: string
+                tags:
+                  type: object
+                  project:
+                    type: string
+                  resource_type:
+                    type: string
+              required:
+                - region
+                - tags
+  claimNames:
+    kind: Bucket
+    plural: buckets

@@ -1,6 +1,6 @@
-helm repo add crossplane-stable https://charts.crossplane.io/stable
-helm repo update
-helm install crossplane crossplane-stable/crossplane --namespace crossplane-system --create-namespace
+kubectl create namespace crossplane-system
+helm repo add upbound-stable https://charts.upbound.io/stable && helm repo update
+helm install uxp --namespace crossplane-system upbound-stable/universal-crossplane --devel
 kubectl get pods -n crossplane-system
 cd ../../..
 kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=./aws-credentials.txt
@@ -10,5 +10,4 @@ pwd
 kubectl apply -f .
 cd -
 cd ../../Kubernetes/Crossplane/aws/provider
-kubectl apply -f provider.yaml
-kubectl apply -f provider-conf.yaml
+kubectl apply -f .

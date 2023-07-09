@@ -1,0 +1,15 @@
+apiVersion: meta.pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: s3-configuration
+  labels:
+    name: s3-configuration
+    type: package
+    sub_type: configuration
+    project: andromeda
+spec:
+  crossplane:
+    version: ">=v1.12.2-up.2"
+  dependsOn:
+    - provider: xpkg.upbound.io/upbound/provider-aws-s3
+      version: ">=v0.37.0"
