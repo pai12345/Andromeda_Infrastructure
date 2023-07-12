@@ -1,0 +1,10 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: ecr-provider
+  labels:
+    name: ecr-provider
+    type: provider
+    project: andromeda
+spec:
+  package: xpkg.upbound.io/upbound/provider-aws-ecr:v0.37.0

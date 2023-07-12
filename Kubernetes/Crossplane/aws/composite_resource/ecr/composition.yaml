@@ -1,0 +1,44 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: repository-composition
+  labels:
+    name: repository-composition
+    type: composition
+    project: andromeda
+spec:
+  compositeTypeRef:
+    apiVersion: api.andromeda.org/v1
+    kind: XRepository
+  patchSets:
+    - name: region
+      patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.region
+          toFieldPath: spec.forProvider.region
+          policy:
+            fromFieldPath: Required
+  resources:
+    - name: ecr
+      base:
+        apiVersion: ecr.aws.upbound.io/v1beta1
+        kind: Repository
+        metadata:
+          name: repository-andromeda
+          labels:
+            name: repository-andromeda
+            type: composed-repository
+            project: andromeda
+        spec:
+          forProvider:
+            forceDelete: true
+          providerConfigRef:
+            name: default
+          publishConnectionDetailsTo:
+            name: repository-andromeda-connection
+      patches:
+        - type: PatchSet
+          patchSetName: region
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.tags
+          toFieldPath: spec.forProvider.tags

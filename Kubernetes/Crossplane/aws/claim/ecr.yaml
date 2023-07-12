@@ -1,0 +1,16 @@
+apiVersion: api.andromeda.org/v1
+kind: Repository
+metadata:
+  annotations:
+    type: crossplane-claim
+  name: andromeda-repository
+  namespace: dev
+  labels:
+    name: andromeda-repository
+    type: claim
+    project: andromeda
+spec:
+  region: us-east-1
+  tags:
+    project: andromeda
+    resource_type: repository

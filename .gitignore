@@ -1,2 +1,6 @@
+# crossplane packages
+*.xpkg
+
 # misc
 .DS_Store
+.vscode

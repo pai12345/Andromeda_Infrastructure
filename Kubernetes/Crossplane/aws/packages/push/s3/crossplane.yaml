@@ -9,7 +9,7 @@ metadata:
     project: andromeda
 spec:
   crossplane:
-    version: ">=v1.12.2-up.2"
+    version: ">=v1.12.2-up.1"
   dependsOn:
     - provider: xpkg.upbound.io/upbound/provider-aws-s3
       version: ">=v0.37.0"
