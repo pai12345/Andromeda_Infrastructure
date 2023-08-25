@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: depl-servicecall
+  namespace: dev
+  labels:
+    app: depl-servicecall
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pod-servicecall
+  template:
+    metadata:
+      name: pod-servicecall
+      labels:
+        app: pod-servicecall
+    spec:
+      containers:
+        - name: servicecall
+          image: servicecall:lts
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: servicecall-port
+              containerPort: 9000
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+
+          startupProbe:
+            httpGet:
+              path: /
+              port: servicecall-port
+            periodSeconds: 20
+            timeoutSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: servicecall-port
+            initialDelaySeconds: 1
+            periodSeconds: 20
+            timeoutSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: servicecall-port
+            initialDelaySeconds: 1
+            periodSeconds: 20
+            timeoutSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: depl-welcome
+  namespace: dev
+  labels:
+    app: depl-welcome
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pod-welcome
+  template:
+    metadata:
+      name: pod-welcome
+      labels:
+        app: pod-welcome
+    spec:
+      containers:
+        - name: welcome
+          image: welcome:lts
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: welcome-port
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+
+          startupProbe:
+            httpGet:
+              path: /
+              port: welcome-port
+            periodSeconds: 20
+            timeoutSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: welcome-port
+            initialDelaySeconds: 1
+            periodSeconds: 20
+            timeoutSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: welcome-port
+            initialDelaySeconds: 1
+            periodSeconds: 20
+            timeoutSeconds: 20
+            successThreshold: 1
+            failureThreshold: 3

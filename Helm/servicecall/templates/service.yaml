@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-servicecall
+  namespace: dev
+  labels:
+    app: svc-servicecall
+spec:
+  type: NodePort
+  selector:
+    app: pod-servicecall
+  ports:
+    - port: 9000
+      targetPort: 9000
+      protocol: TCP
+      nodePort: 30000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-welcome
+  namespace: dev
+  labels:
+    name: svc-welcome
+spec:
+  type: ClusterIP
+  selector:
+    app: pod-welcome
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      nodePort: 30001
