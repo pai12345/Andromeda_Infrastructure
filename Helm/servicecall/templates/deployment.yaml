@@ -21,7 +21,7 @@ spec:
           image: servicecall:lts
           imagePullPolicy: IfNotPresent
           ports:
-            - name: servicecall-port
+            - name: svccall-port
               containerPort: 9000
           securityContext:
             allowPrivilegeEscalation: false
@@ -30,7 +30,7 @@ spec:
           startupProbe:
             httpGet:
               path: /
-              port: servicecall-port
+              port: svccall-port
             periodSeconds: 20
             timeoutSeconds: 20
             successThreshold: 1
@@ -39,7 +39,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: servicecall-port
+              port: svccall-port
             initialDelaySeconds: 1
             periodSeconds: 20
             timeoutSeconds: 20
@@ -49,7 +49,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: servicecall-port
+              port: svccall-port
             initialDelaySeconds: 1
             periodSeconds: 20
             timeoutSeconds: 20
@@ -79,7 +79,7 @@ spec:
           image: welcome:lts
           imagePullPolicy: IfNotPresent
           ports:
-            - name: welcome-port
+            - name: wlcm-port
               containerPort: 8080
           securityContext:
             allowPrivilegeEscalation: false
@@ -88,7 +88,7 @@ spec:
           startupProbe:
             httpGet:
               path: /
-              port: welcome-port
+              port: wlcm-port
             periodSeconds: 20
             timeoutSeconds: 20
             successThreshold: 1
@@ -97,7 +97,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: welcome-port
+              port: wlcm-port
             initialDelaySeconds: 1
             periodSeconds: 20
             timeoutSeconds: 20
