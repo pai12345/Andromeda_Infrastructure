@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: vs-servicecall
+  namespace: dev
+  labels:
+    app: vs-servicecall
+    version: {{ .Chart.Version }}
+spec:
+  hosts:
+    - svc-servicecall.dev.svc.cluster.local
+  http:
+    - name: "route-servicecall"
+      route:
+        - destination:
+            host: svc-servicecall.dev.svc.cluster.local

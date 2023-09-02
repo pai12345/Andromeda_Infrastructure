@@ -5,6 +5,7 @@ metadata:
   namespace: dev
   labels:
     app: svc-servicecall
+    version: {{ .Chart.Version }}
 spec:
   type: NodePort
   selector:
@@ -22,6 +23,7 @@ metadata:
   namespace: dev
   labels:
     name: svc-welcome
+    version: {{ .Chart.Version }}
 spec:
   type: ClusterIP
   selector:

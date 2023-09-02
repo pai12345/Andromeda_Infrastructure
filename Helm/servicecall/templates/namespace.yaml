@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: dev
   labels:
-    name: dev
+    app: dev
     type: namespace
+    version: {{ .Chart.Version }}
     istio-injection: enabled
-    project: andromeda

@@ -1,5 +1,5 @@
 sudo sysctl fs.protected_regular=0
-minikube addon enable metrics-server
+minikube addons enable metrics-server
 minikube start --force
 curl -L https://istio.io/downloadIstio | sh -
 cd istio-1.18.2
