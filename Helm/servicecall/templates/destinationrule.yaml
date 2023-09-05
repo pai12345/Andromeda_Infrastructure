@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: ds-servicecall
+  namespace: dev
+  labels:
+    app: ds-servicecall
+    chartversion: {{ .Chart.Version }}
+spec:
+  host: svc-servicecall.dev.svc.cluster.local
+  subsets:
+  - name: stable
+    labels:
+      version: stable
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: ds-welcome
+  namespace: dev
+  labels:
+    app: ds-welcome
+    chartversion: {{ .Chart.Version }}
+spec:
+  host: svc-welcome.dev.svc.cluster.local
+  subsets:
+  - name: stable
+    labels:
+      version: stable

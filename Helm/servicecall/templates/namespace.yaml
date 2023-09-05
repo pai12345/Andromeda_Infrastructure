@@ -4,6 +4,6 @@ metadata:
   name: dev
   labels:
     app: dev
-    type: namespace
-    version: {{ .Chart.Version }}
+    version: stable
+    chartversion: {{ .Chart.Version }}
     istio-injection: enabled

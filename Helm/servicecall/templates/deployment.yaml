@@ -5,7 +5,8 @@ metadata:
   namespace: dev
   labels:
     app: depl-servicecall
-    version: {{ .Chart.Version }}
+    chartversion: {{ .Chart.Version }}
+    version: stable
 spec:
   replicas: 1
   selector:
@@ -16,7 +17,8 @@ spec:
       name: pod-servicecall
       labels:
         app: pod-servicecall
-        version: {{ .Chart.Version }}
+        chartversion: {{ .Chart.Version }}
+        version: stable
     spec:
       containers:
         - name: servicecall
@@ -65,7 +67,8 @@ metadata:
   namespace: dev
   labels:
     app: depl-welcome
-    version: {{ .Chart.Version }}
+    chartversion: {{ .Chart.Version }}
+    version: stable
 spec:
   replicas: 1
   selector:
@@ -76,7 +79,8 @@ spec:
       name: pod-welcome
       labels:
         app: pod-welcome
-        version: {{ .Chart.Version }}
+        chartversion: {{ .Chart.Version }}
+        version: stable
     spec:
       containers:
         - name: welcome

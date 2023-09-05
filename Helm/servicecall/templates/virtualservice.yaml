@@ -5,12 +5,59 @@ metadata:
   namespace: dev
   labels:
     app: vs-servicecall
-    version: {{ .Chart.Version }}
+    chartversion: {{ .Chart.Version }}
 spec:
   hosts:
     - svc-servicecall.dev.svc.cluster.local
   http:
     - name: "route-servicecall"
+      match:
+        - uri: 
+            prefix: "/api/"
       route:
         - destination:
             host: svc-servicecall.dev.svc.cluster.local
+            subset: stable
+    - name: "route-notfound"
+      directResponse:
+        status: 404
+        body:
+          string: "{\"message\": \"Service Not found\"}"
+      headers:
+        respone:
+          set:
+            content-type: application/json
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: vs-welcome
+  namespace: dev
+  labels:
+    app: vs-welcome
+    chartversion: {{ .Chart.Version }}
+spec:
+  hosts:
+    - svc-welcome.dev.svc.cluster.local
+  http:
+    - name: "route-welcome"
+      match:
+        - uri: 
+            prefix: "/api/"
+      route:
+        - destination:
+            host: svc-welcome.dev.svc.cluster.local
+            subset: stable
+      retries:
+        attempts: 5
+        perTryTimeout: 5s
+        retryOn: gateway-error,connect-failure,refused-stream
+    - name: "route-notfound"
+      directResponse:
+        status: 404
+        body:
+          string: "{\"message\": \"Service Not found\"}"
+      headers:
+        respone:
+          set:
+            content-type: application/json
