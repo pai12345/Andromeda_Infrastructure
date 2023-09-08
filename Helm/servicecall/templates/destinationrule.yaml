@@ -11,6 +11,10 @@ spec:
   trafficPolicy:
     loadBalancer:
       simple: LEAST_REQUEST
+    outlierDetection:
+      consecutive5xxErrors: 3
+      consecutiveGatewayErrors: 3
+      interval: 5s
   subsets:
   - name: stable
     labels:
@@ -26,6 +30,13 @@ metadata:
     chartversion: {{ .Chart.Version }}
 spec:
   host: svc-welcome.dev.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_REQUEST
+    outlierDetection:
+      consecutive5xxErrors: 3
+      consecutiveGatewayErrors: 3
+      interval: 5s
   subsets:
   - name: stable
     labels:
