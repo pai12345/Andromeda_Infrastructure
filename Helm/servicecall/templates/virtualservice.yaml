@@ -8,7 +8,10 @@ metadata:
     chartversion: {{ .Chart.Version }}
 spec:
   hosts:
-    - svc-servicecall.dev.svc.cluster.local
+    - "*"
+  gateways:
+    - ingressgateway-andromeda
+    - "*"
   http:
     - name: "route-servicecall"
       match:
@@ -24,7 +27,7 @@ spec:
         body:
           string: "{\"message\": \"Service Not found\"}"
       headers:
-        respone:
+        response:
           set:
             content-type: application/json
 ---
@@ -38,7 +41,9 @@ metadata:
     chartversion: {{ .Chart.Version }}
 spec:
   hosts:
-    - svc-welcome.dev.svc.cluster.local
+    - "*"
+  gateways:
+    - ingressgateway-andromeda
   http:
     - name: "route-welcome"
       match:
@@ -52,12 +57,4 @@ spec:
         attempts: 5
         perTryTimeout: 5s
         retryOn: gateway-error,connect-failure,refused-stream
-    - name: "route-notfound"
-      directResponse:
-        status: 404
-        body:
-          string: "{\"message\": \"Service Not found\"}"
-      headers:
-        respone:
-          set:
-            content-type: application/json
+

@@ -8,6 +8,9 @@ metadata:
     chartversion: {{ .Chart.Version }}
 spec:
   host: svc-servicecall.dev.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_REQUEST
   subsets:
   - name: stable
     labels:
