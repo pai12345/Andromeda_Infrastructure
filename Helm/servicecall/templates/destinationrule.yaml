@@ -16,9 +16,9 @@ spec:
       consecutiveGatewayErrors: 3
       interval: 5s
   subsets:
-  - name: stable
-    labels:
-      version: stable
+    - name: stable
+      labels:
+        version: stable
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
@@ -38,6 +38,6 @@ spec:
       consecutiveGatewayErrors: 3
       interval: 5s
   subsets:
-  - name: stable
-    labels:
-      version: stable
+    - name: stable
+      labels:
+        version: stable
