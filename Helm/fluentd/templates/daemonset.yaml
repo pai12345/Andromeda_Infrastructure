@@ -1,10 +1,11 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: fluentd
-  namespace: fluentd
+  name: fluentd-daemon
+  namespace: logging
   labels:
     app: fluentd
+    type: ds
 spec:
   selector:
     matchLabels:
@@ -13,6 +14,7 @@ spec:
     metadata:
       labels:
         app: fluentd
+        type: pod
     spec:
       serviceAccount: fluentd-sa
       serviceAccountName: fluentd-sa
@@ -32,6 +34,8 @@ spec:
               cpu: 100m
               memory: 200Mi
           volumeMounts:
+            - name: fluentd-config
+              mountPath: /fluentd/etc
             - name: varlog
               mountPath: /var/log
             - name: varlibdockercontainers
@@ -40,9 +44,15 @@ spec:
               mountPath: /var/log/pods
       terminationGracePeriodSeconds: 30
       volumes:
+        - name: fluentd-config
+          configMap:
+            name: fluentd-config
         - name: varlog
-          emptyDir: {}
+          hostPath:
+            path: /var/log
         - name: varlibdockercontainers
-          emptyDir: {}
+          hostPath:
+            path: /var/lib/docker/containers
         - name: dockercontainerlogdirectory
-          emptyDir: {}
+          hostPath:
+            path: /var/log/pods

@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: fluentd
+  name: logging
   labels:
-    app: fluentd
-    version: stable
-    chartversion: {{ .Chart.Version }}
+    app: logging
+    type: ns

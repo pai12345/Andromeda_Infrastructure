@@ -4,6 +4,7 @@ metadata:
   name: fluentd-cr
   labels:
     app: fluentd-cr
+    type: cr
 rules:
   - apiGroups:
       - ""
