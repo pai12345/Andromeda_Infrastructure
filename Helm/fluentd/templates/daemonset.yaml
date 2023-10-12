@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd
+  namespace: fluentd
+  labels:
+    app: fluentd
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      serviceAccount: fluentd-sa
+      serviceAccountName: fluentd-sa
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      containers:
+        - name: fluentd
+          image: fluentd-temp:lts
+          env:
+            - name: FLUENTD_SYSTEMD_CONF
+              value: disable
+          resources:
+            limits:
+              memory: 220Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+          volumeMounts:
+            - name: varlog
+              mountPath: /var/log
+            - name: varlibdockercontainers
+              mountPath: /var/lib/docker/containers
+            - name: dockercontainerlogdirectory
+              mountPath: /var/log/pods
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: varlog
+          emptyDir: {}
+        - name: varlibdockercontainers
+          emptyDir: {}
+        - name: dockercontainerlogdirectory
+          emptyDir: {}
